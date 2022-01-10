@@ -66,7 +66,7 @@
 
 									<ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuCatalog">
 										<li><a href="catalog1.html">Catalog Grid</a></li>
-										<li><a href="catalog2.html">Catalog List</a></li>
+										<li><a href="catalog2.php">Catalog List</a></li>
 										<li><a href="details1.html">Details Movie</a></li>
 										<li><a href="details2.html">Details TV Series</a></li>
 									</ul>
@@ -189,9 +189,7 @@
 									{
 									extract($row);
 										echo "<li>$CategoryName</li>";
-
-									}
-									
+									}									
 									mysql_close($dataBase);
 								?>
 								</ul>
@@ -218,7 +216,7 @@
 
 							<!-- filter item -->
 							<div class="filter__item" id="filter__rate">
-								<span class="filter__item-label">IMBd:</span>
+								<span class="filter__item-label">IMBD Rating:</span>
 
 								<div class="filter__item-btn dropdown-toggle" role="button" id="filter-rate" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									<div class="filter__range">
