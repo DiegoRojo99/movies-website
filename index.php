@@ -167,7 +167,8 @@
 
 						<?php 
 							$dataBase = connectDB();
-							$query='SELECT DISTINCT * FROM Movie ORDER BY MovieId DESC;';
+							$date = date('y-m-d');
+							$query='SELECT DISTINCT * FROM Movie WHERE ReleaseDate<"'.$date.'" ORDER BY MovieId DESC;';
 							$result=mysqli_query($dataBase,$query) or die('Query failed: '.mysqli_error($dataBase));
 
 							while ($row = mysqli_fetch_array($result, MYSQL_ASSOC))
@@ -280,7 +281,8 @@
 						<!-- cards -->
 						<?php 
 							$dataBase = connectDB();
-							$query='SELECT DISTINCT * FROM Movie ORDER BY MovieId DESC;';
+							$date = date('y-m-d');
+							$query='SELECT DISTINCT * FROM Movie WHERE ReleaseDate<"'.$date.'" ORDER BY ReleaseDate DESC;';
 							$result=mysqli_query($dataBase,$query) or die('Query failed: '.mysqli_error($dataBase));
 							$cards=0;
 
