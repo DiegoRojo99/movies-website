@@ -205,7 +205,7 @@
 														echo '
 														</li>
 														<li><span>Release year:</span> '.$Year.'</li>
-														<li><span>Running time:</span> 120 min</li>
+														<li><span>Running time:</span> '.$RunningTime.' min</li>
 														<li><span>Plot: </span> '.$Description.'</li>
 													</ul>
 
