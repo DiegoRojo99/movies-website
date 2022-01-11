@@ -1,3 +1,6 @@
+<?php 
+	include ("connectToDB.inc");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,7 +50,7 @@
 							</a>
 
 							<div class="sign__group">
-								<input type="text" class="sign__input" placeholder="Name">
+								<input type="text" class="sign__input" placeholder="Username">
 							</div>
 
 							<div class="sign__group">
@@ -65,7 +68,7 @@
 							
 							<button class="sign__btn" type="button">Sign up</button>
 
-							<span class="sign__text">Already have an account? <a href="signin.html">Sign in!</a></span>
+							<span class="sign__text">Already have an account? <a href="signin.php">Sign in!</a></span>
 						</form>
 						<!-- registration form -->
 					</div>

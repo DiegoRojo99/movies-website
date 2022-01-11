@@ -86,7 +86,7 @@
 									<ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuMore">
 										<li><a href="about.html">About</a></li>
 										<li><a href="signin.php">Sign In</a></li>
-										<li><a href="signup.html">Sign Up</a></li>
+										<li><a href="signup.php">Sign Up</a></li>
 										<li><a href="404.html">404 Page</a></li>
 									</ul>
 								</li>
