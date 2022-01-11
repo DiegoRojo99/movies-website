@@ -1,3 +1,6 @@
+<?php 
+	include ("connectToDB.inc");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -285,257 +288,47 @@
 	<div class="catalog">
 		<div class="container">
 			<div class="row">
-				<!-- card -->
-				<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-					<div class="card">
-						<div class="card__cover">
-							<img src="img/covers/cover.jpg" alt="">
-							<a href="#" class="card__play">
-								<i class="icon ion-ios-play"></i>
-							</a>
-						</div>
-						<div class="card__content">
-							<h3 class="card__title"><a href="#">I Dream in Another Language</a></h3>
-							<span class="card__category">
-								<a href="#">Action</a>
-								<a href="#">Triler</a>
-							</span>
-							<span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
-						</div>
-					</div>
-				</div>
-				<!-- end card -->
+			<?php 
+			
+			$dataBase = connectDB();
+			$query='SELECT * FROM Movie;';
+			$result=mysqli_query($dataBase,$query) or die('Query failed: '.mysqli_error($dataBase));
 
-				<!-- card -->
+			while ($row = mysqli_fetch_array($result, MYSQL_ASSOC))
+			{
+			extract($row);
+				echo '
 				<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
 					<div class="card">
 						<div class="card__cover">
-							<img src="img/covers/cover2.jpg" alt="">
+							<img src="'.$Poster.'" alt="">
 							<a href="#" class="card__play">
 								<i class="icon ion-ios-play"></i>
 							</a>
 						</div>
 						<div class="card__content">
-							<h3 class="card__title"><a href="#">Benched</a></h3>
-							<span class="card__category">
-								<a href="#">Comedy</a>
-							</span>
-							<span class="card__rate"><i class="icon ion-ios-star"></i>7.1</span>
-						</div>
-					</div>
-				</div>
-				<!-- end card -->
+							<h3 class="card__title"><a href="#">'.$Title.'</a></h3>
+							<span class="card__category">';
 
-				<!-- card -->
-				<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-					<div class="card">
-						<div class="card__cover">
-							<img src="img/covers/cover3.jpg" alt="">
-							<a href="#" class="card__play">
-								<i class="icon ion-ios-play"></i>
-							</a>
-						</div>
-						<div class="card__content">
-							<h3 class="card__title"><a href="#">Whitney</a></h3>
-							<span class="card__category">
-								<a href="#">Romance</a>
-								<a href="#">Drama</a>
-								<a href="#">Music</a>
-							</span>
-							<span class="card__rate"><i class="icon ion-ios-star"></i>6.3</span>
-						</div>
-					</div>
-				</div>
-				<!-- end card -->
+							$dataBase2 = connectDB();
+							$query2='SELECT * FROM Belong b JOIN Category c ON c.CategoryId=b.CategoryId WHERE MovieId="'.$MovieId.'";';
+							$result2=mysqli_query($dataBase2,$query2) or die("Query failed: ".mysqli_error($dataBase2));
+			
+							while ($row2 = mysqli_fetch_array($result2, MYSQL_ASSOC))
+							{
+							extract($row2);
+							echo '<a href="#">'.$CategoryName.'</a>';
+							}    
 
-				<!-- card -->
-				<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-					<div class="card">
-						<div class="card__cover">
-							<img src="img/covers/cover4.jpg" alt="">
-							<a href="#" class="card__play">
-								<i class="icon ion-ios-play"></i>
-							</a>
-						</div>
-						<div class="card__content">
-							<h3 class="card__title"><a href="#">Blindspotting</a></h3>
-							<span class="card__category">
-								<a href="#">Comedy</a>
-								<a href="#">Drama</a>
+							mysql_close($dataBase2);
+							echo '
 							</span>
-							<span class="card__rate"><i class="icon ion-ios-star"></i>7.9</span>
+							<span class="card__rate"><i class="icon ion-ios-star"></i>'.$Rating.'</span>
 						</div>
 					</div>
-				</div>
-				<!-- end card -->
-
-				<!-- card -->
-				<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-					<div class="card">
-						<div class="card__cover">
-							<img src="img/covers/cover5.jpg" alt="">
-							<a href="#" class="card__play">
-								<i class="icon ion-ios-play"></i>
-							</a>
-						</div>
-						<div class="card__content">
-							<h3 class="card__title"><a href="#">I Dream in Another Language</a></h3>
-							<span class="card__category">
-								<a href="#">Action</a>
-								<a href="#">Triler</a>
-							</span>
-							<span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
-						</div>
-					</div>
-				</div>
-				<!-- end card -->
-
-				<!-- card -->
-				<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-					<div class="card">
-						<div class="card__cover">
-							<img src="img/covers/cover6.jpg" alt="">
-							<a href="#" class="card__play">
-								<i class="icon ion-ios-play"></i>
-							</a>
-						</div>
-						<div class="card__content">
-							<h3 class="card__title"><a href="#">Benched</a></h3>
-							<span class="card__category">
-								<a href="#">Comedy</a>
-							</span>
-							<span class="card__rate"><i class="icon ion-ios-star"></i>7.1</span>
-						</div>
-					</div>
-				</div>
-				<!-- end card -->
-
-				<!-- card -->
-				<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-					<div class="card">
-						<div class="card__cover">
-							<img src="img/covers/cover6.jpg" alt="">
-							<a href="#" class="card__play">
-								<i class="icon ion-ios-play"></i>
-							</a>
-						</div>
-						<div class="card__content">
-							<h3 class="card__title"><a href="#">Whitney</a></h3>
-							<span class="card__category">
-								<a href="#">Romance</a>
-								<a href="#">Drama</a>
-								<a href="#">Music</a>
-							</span>
-							<span class="card__rate"><i class="icon ion-ios-star"></i>6.3</span>
-						</div>
-					</div>
-				</div>
-				<!-- end card -->
-
-				<!-- card -->
-				<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-					<div class="card">
-						<div class="card__cover">
-							<img src="img/covers/cover5.jpg" alt="">
-							<a href="#" class="card__play">
-								<i class="icon ion-ios-play"></i>
-							</a>
-						</div>
-						<div class="card__content">
-							<h3 class="card__title"><a href="#">Blindspotting</a></h3>
-							<span class="card__category">
-								<a href="#">Comedy</a>
-								<a href="#">Drama</a>
-							</span>
-							<span class="card__rate"><i class="icon ion-ios-star"></i>7.9</span>
-						</div>
-					</div>
-				</div>
-				<!-- end card -->
-
-				<!-- card -->
-				<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-					<div class="card">
-						<div class="card__cover">
-							<img src="img/covers/cover4.jpg" alt="">
-							<a href="#" class="card__play">
-								<i class="icon ion-ios-play"></i>
-							</a>
-						</div>
-						<div class="card__content">
-							<h3 class="card__title"><a href="#">I Dream in Another Language</a></h3>
-							<span class="card__category">
-								<a href="#">Action</a>
-								<a href="#">Triler</a>
-							</span>
-							<span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
-						</div>
-					</div>
-				</div>
-				<!-- end card -->
-
-				<!-- card -->
-				<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-					<div class="card">
-						<div class="card__cover">
-							<img src="img/covers/cover3.jpg" alt="">
-							<a href="#" class="card__play">
-								<i class="icon ion-ios-play"></i>
-							</a>
-						</div>
-						<div class="card__content">
-							<h3 class="card__title"><a href="#">Benched</a></h3>
-							<span class="card__category">
-								<a href="#">Comedy</a>
-							</span>
-							<span class="card__rate"><i class="icon ion-ios-star"></i>7.1</span>
-						</div>
-					</div>
-				</div>
-				<!-- end card -->
-
-				<!-- card -->
-				<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-					<div class="card">
-						<div class="card__cover">
-							<img src="img/covers/cover2.jpg" alt="">
-							<a href="#" class="card__play">
-								<i class="icon ion-ios-play"></i>
-							</a>
-						</div>
-						<div class="card__content">
-							<h3 class="card__title"><a href="#">Whitney</a></h3>
-							<span class="card__category">
-								<a href="#">Romance</a>
-								<a href="#">Drama</a>
-								<a href="#">Music</a>
-							</span>
-							<span class="card__rate"><i class="icon ion-ios-star"></i>6.3</span>
-						</div>
-					</div>
-				</div>
-				<!-- end card -->
-
-				<!-- card -->
-				<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-					<div class="card">
-						<div class="card__cover">
-							<img src="img/covers/cover.jpg" alt="">
-							<a href="#" class="card__play">
-								<i class="icon ion-ios-play"></i>
-							</a>
-						</div>
-						<div class="card__content">
-							<h3 class="card__title"><a href="#">Blindspotting</a></h3>
-							<span class="card__category">
-								<a href="#">Comedy</a>
-								<a href="#">Drama</a>
-							</span>
-							<span class="card__rate"><i class="icon ion-ios-star"></i>7.9</span>
-						</div>
-					</div>
-				</div>
-				<!-- end card -->
+				</div>';
+			}
+			?>
 
 				<!-- paginator -->
 				<div class="col-12">
