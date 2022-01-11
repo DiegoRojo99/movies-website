@@ -64,7 +64,7 @@
 									<a class="dropdown-toggle header__nav-link" href="#" role="button" id="dropdownMenuCatalog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catalog</a>
 
 									<ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuCatalog">
-										<li><a href="catalog1.html">Catalog Grid</a></li>
+										<li><a href="">Catalog Grid</a></li>
 										<li><a href="catalog2.php">Catalog List</a></li>
 										<li><a href="details1.html">Details Movie</a></li>
 										<li><a href="details2.html">Details TV Series</a></li>
@@ -174,47 +174,23 @@
 								<span class="filter__item-label">GENRE:</span>
 
 								<div class="filter__item-btn dropdown-toggle" role="navigation" id="filter-genre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									<input type="button" value="Action/Adventure">
+									<input type="button" value="Action">
 									<span></span>
 								</div>
 
 								<ul class="filter__item-menu dropdown-menu scrollbar-dropdown" aria-labelledby="filter-genre">
-									<li>Action/Adventure</li>
-									<li>Animals</li>
-									<li>Animation</li>
-									<li>Biography</li>
-									<li>Comedy</li>
-									<li>Cooking</li>
-									<li>Dance</li>
-									<li>Documentary</li>
-									<li>Drama</li>
-									<li>Education</li>
-									<li>Entertainment</li>
-									<li>Family</li>
-									<li>Fantasy</li>
-									<li>History</li>
-									<li>Horror</li>
-									<li>Independent</li>
-									<li>International</li>
-									<li>Kids</li>
-									<li>Kids & Family</li>
-									<li>Medical</li>
-									<li>Military/War</li>
-									<li>Music</li>
-									<li>Musical</li>
-									<li>Mystery/Crime</li>
-									<li>Nature</li>
-									<li>Paranormal</li>
-									<li>Politics</li>
-									<li>Racing</li>
-									<li>Romance</li>
-									<li>Sci-Fi/Horror</li>
-									<li>Science</li>
-									<li>Science Fiction</li>
-									<li>Science/Nature</li>
-									<li>Spanish</li>
-									<li>Travel</li>
-									<li>Western</li>
+								<?php 
+									$dataBase = connectDB();
+									$query='SELECT * FROM Category;';
+									$result=mysqli_query($dataBase,$query) or die('Query failed: '.mysqli_error($dataBase));
+
+									while ($row = mysqli_fetch_array($result, MYSQL_ASSOC))
+									{
+									extract($row);
+										echo "<li>$CategoryName</li>";
+									}									
+									mysql_close($dataBase);
+								?>
 								</ul>
 							</div>
 							<!-- end filter item -->
