@@ -476,7 +476,7 @@ ul {
   -webkit-box-shadow: 0 0 20px 0 rgba(255,88,96,0.5);
   box-shadow: 0 0 20px 0 rgba(255,88,96,0.5);
   opacity: 0.85;
-  margin-left: 20px;
+  margin-left: 10px;
 }
 .header__sign-in span {
   display: none;

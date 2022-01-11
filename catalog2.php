@@ -105,6 +105,11 @@
 									<i class="icon ion-ios-log-in"></i>
 									<span>sign in</span>
 								</a>
+
+								<a href="signip.php" class="header__sign-in">
+									<i class="icon ion-ios-log-in"></i>
+									<span>sign up</span>
+								</a>
 							</div>
 							<!-- end header auth -->
 

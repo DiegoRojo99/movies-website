@@ -44,17 +44,17 @@
 				<div class="col-12">
 					<div class="sign__content">
 						<!-- authorization form -->
-						<form action="#" class="sign__form">
-							<a href="index.html" class="sign__logo">
+						<form action="loginAndRegister.php" class="sign__form" method="post">
+							<a href="index.php" class="sign__logo">
 								<img src="img/logo.svg" alt="">
 							</a>
 
 							<div class="sign__group">
-								<input type="text" class="sign__input" placeholder="Email">
+								<input type="text" class="sign__input" placeholder="Username" name="Username">
 							</div>
 
 							<div class="sign__group">
-								<input type="password" class="sign__input" placeholder="Password">
+								<input type="password" class="sign__input" placeholder="Password" name="Password">
 							</div>
 
 							<div class="sign__group sign__group--checkbox">
@@ -62,7 +62,7 @@
 								<label for="remember">Remember Me</label>
 							</div>
 							
-							<button class="sign__btn" type="button">Sign in</button>
+							<button class="sign__btn" type="submit">Sign in</button>
 
 							<span class="sign__text">Don't have an account? <a href="signup.php">Sign up!</a></span>
 

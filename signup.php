@@ -1,6 +1,3 @@
-<?php 
-	include ("connectToDB.inc");
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,21 +41,21 @@
 				<div class="col-12">
 					<div class="sign__content">
 						<!-- registration form -->
-						<form action="#" class="sign__form">
-							<a href="index.html" class="sign__logo">
+						<form action="loginAndRegister.php" class="sign__form" method="post">
+							<a href="index.php" class="sign__logo">
 								<img src="img/logo.svg" alt="">
 							</a>
 
 							<div class="sign__group">
-								<input type="text" class="sign__input" placeholder="Username">
+								<input type="text" class="sign__input" placeholder="Username" name="Username">
 							</div>
 
 							<div class="sign__group">
-								<input type="text" class="sign__input" placeholder="Email">
+								<input type="email" class="sign__input" placeholder="Email" name="Email">
 							</div>
 
 							<div class="sign__group">
-								<input type="password" class="sign__input" placeholder="Password">
+								<input type="password" class="sign__input" placeholder="Password" name="Password">
 							</div>
 
 							<div class="sign__group sign__group--checkbox">
@@ -66,7 +63,7 @@
 								<label for="remember">I agree to the <a href="#">Privacy Policy</a></label>
 							</div>
 							
-							<button class="sign__btn" type="button">Sign up</button>
+							<button class="sign__btn" type="submit">Sign up</button>
 
 							<span class="sign__text">Already have an account? <a href="signin.php">Sign in!</a></span>
 						</form>
