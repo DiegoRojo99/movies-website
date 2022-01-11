@@ -85,7 +85,7 @@
 
 									<ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuMore">
 										<li><a href="about.html">About</a></li>
-										<li><a href="signin.html">Sign In</a></li>
+										<li><a href="signin.php">Sign In</a></li>
 										<li><a href="signup.html">Sign Up</a></li>
 										<li><a href="404.html">404 Page</a></li>
 									</ul>
@@ -100,7 +100,7 @@
 									<i class="icon ion-ios-search"></i>
 								</button>
 
-								<a href="signin.html" class="header__sign-in">
+								<a href="signin.php" class="header__sign-in">
 									<i class="icon ion-ios-log-in"></i>
 									<span>sign in</span>
 								</a>

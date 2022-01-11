@@ -1,3 +1,6 @@
+<?php 
+	include ("connectToDB.inc");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
