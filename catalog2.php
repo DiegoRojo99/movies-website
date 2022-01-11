@@ -56,7 +56,7 @@
 							<ul class="header__nav">
 								<!-- home -->
 								<li class="header__nav-item">
-									<a class="dropdown-toggle header__nav-link" href="index.html" role="button" id="dropdownMenuHome">Home</a>
+									<a class="dropdown-toggle header__nav-link" href="index.php" role="button" id="dropdownMenuHome">Home</a>
 								</li>
 								<!-- end home -->
 
