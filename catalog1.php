@@ -59,17 +59,11 @@
 								</li>
 								<!-- end home -->
 
-								<!-- dropdown -->
+								<!-- catalog -->
 								<li class="header__nav-item">
-									<a class="dropdown-toggle header__nav-link" href="#" role="button" id="dropdownMenuCatalog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catalog</a>
-
-									<ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuCatalog">
-										<li><a href="">Catalog Grid</a></li>
-										<li><a href="catalog2.php">Catalog List</a></li>
-										<li><a href="details2.html">Details TV Series</a></li>
-									</ul>
+									<a href="catalog1.php" class="header__nav-link">Catalog</a>
 								</li>
-								<!-- end dropdown -->
+								<!-- end catalog -->
 
 								<li class="header__nav-item">
 									<a href="pricing.html" class="header__nav-link">Pricing Plan</a>
@@ -145,15 +139,12 @@
 				<div class="col-12">
 					<div class="section__wrap">
 						<!-- section title -->
-						<h2 class="section__title">Catalog grid</h2>
+						<h2 class="section__title">Catalog Grid</h2>
 						<!-- end section title -->
 
-						<!-- breadcrumb -->
-						<ul class="breadcrumb">
-							<li class="breadcrumb__item"><a href="#">Home</a></li>
-							<li class="breadcrumb__item breadcrumb__item--active">Catalog grid</li>
-						</ul>
-						<!-- end breadcrumb -->
+						<!-- change to list -->
+						<button class="filter__btn" type="button"><a href="catalog2.php" style="color:white;">List</a></button>
+						<!-- end changer -->
 					</div>
 				</div>
 			</div>

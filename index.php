@@ -59,17 +59,11 @@
 								</li>
 								<!-- end home -->
 
-								<!-- dropdown -->
+								<!-- catalog -->
 								<li class="header__nav-item">
-									<a class="dropdown-toggle header__nav-link" href="#" role="button" id="dropdownMenuCatalog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catalog</a>
-
-									<ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuCatalog">
-										<li><a href="catalog1.php">Catalog Grid</a></li>
-										<li><a href="catalog2.php">Catalog List</a></li>
-										<li><a href="details2.html">Details TV Series</a></li>
-									</ul>
+									<a href="catalog1.php" class="header__nav-link">Catalog</a>
 								</li>
-								<!-- end dropdown -->
+								<!-- end catalog -->
 
 								<li class="header__nav-item">
 									<a href="pricing.html" class="header__nav-link">Pricing Plan</a>
