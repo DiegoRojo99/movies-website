@@ -104,11 +104,6 @@
 									<i class="icon ion-ios-log-in"></i>
 									<span>sign in</span>
 								</a>
-
-								<a href="signip.php" class="header__sign-in">
-									<i class="icon ion-ios-log-in"></i>
-									<span>sign up</span>
-								</a>
 							</div>
 							<!-- end header auth -->
 
@@ -199,7 +194,7 @@
 														<li><span>Genre:</span>';
 														$dataBase2 = connectDB();
 														$query2='SELECT * FROM Belong b JOIN Category c ON c.CategoryId=b.CategoryId WHERE MovieId="'.$MovieId.'";';
-														$result2=mysqli_query($dataBase2,$query2) or die('Query failed: '.mysqli_error($dataBase));
+														$result2=mysqli_query($dataBase2,$query2) or die('Query failed: '.mysqli_error($dataBase2));
 
 														while ($row2 = mysqli_fetch_array($result2, MYSQL_ASSOC))
 														{
@@ -254,15 +249,29 @@
 				<div class="col-12">
 					<div class="details__wrap">
 						<!-- availables -->
+						
 						<div class="details__devices">
-							<span class="details__devices-title">Available on devices:</span>
+							<span class="details__devices-title">Available on these streaming apps:</span><br>
 							<ul class="details__devices-list">
-								<li><i class="icon ion-logo-apple"></i><span>IOS</span></li>
-								<li><i class="icon ion-logo-android"></i><span>Android</span></li>
-								<li><i class="icon ion-logo-windows"></i><span>Windows</span></li>
-								<li><i class="icon ion-md-tv"></i><span>Smart TV</span></li>
+							<?php
+
+							$dataBase3 = connectDB();
+							$query3='
+	SELECT * FROM WhereToWatch w JOIN StreamingService s ON w.StreamingId=s.StreamingId WHERE w.MovieId="'.$mid.'";';
+							$result3=mysqli_query($dataBase3,$query3) or die('Query failed: '.mysqli_error($dataBase3));
+
+							while ($row3 = mysqli_fetch_array($result3, MYSQL_ASSOC))
+							{
+								extract($row3);	
+								echo '
+									<li><img style="height: 75px;" src="'.$Logo.'"></li>
+								';
+							}
+							mysql_close($dataBase3);
+							?>
 							</ul>
 						</div>
+
 						<!-- end availables -->
 
 						<!-- share -->
