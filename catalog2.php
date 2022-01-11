@@ -188,18 +188,26 @@
 
 							<!-- filter item -->
 							<div class="filter__item" id="filter__quality">
-								<span class="filter__item-label">QUALITY:</span>
+								<span class="filter__item-label">STREAMING APP:</span>
 
 								<div class="filter__item-btn dropdown-toggle" role="navigation" id="filter-quality" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									<input type="button" value="HD 1080">
+									<input type="button" value="NETFLIX">
 									<span></span>
 								</div>
 
 								<ul class="filter__item-menu dropdown-menu scrollbar-dropdown" aria-labelledby="filter-quality">
-									<li>HD 1080</li>
-									<li>HD 720</li>
-									<li>DVD</li>
-									<li>TS</li>
+								<?php 
+									$dataBase = connectDB();
+									$query='SELECT * FROM StreamingService;';
+									$result=mysqli_query($dataBase,$query) or die('Query failed: '.mysqli_error($dataBase));
+
+									while ($row = mysqli_fetch_array($result, MYSQL_ASSOC))
+									{
+									extract($row);
+										echo "<li>$StreamingName</li>";
+									}									
+									mysql_close($dataBase);
+								?>
 								</ul>
 							</div>
 							<!-- end filter item -->
