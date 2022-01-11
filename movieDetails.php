@@ -1,3 +1,6 @@
+<?php 
+	include ("connectToDB.inc");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -63,7 +66,6 @@
 									<ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuCatalog">
 										<li><a href="catalog1.php">Catalog Grid</a></li>
 										<li><a href="catalog2.php">Catalog List</a></li>
-										<li><a href="details1.html">Details Movie</a></li>
 										<li><a href="details2.html">Details TV Series</a></li>
 									</ul>
 								</li>
@@ -142,59 +144,89 @@
 		<div class="details__bg" data-bg="img/home/home__bg.jpg"></div>
 		<!-- end details background -->
 
-		<!-- details content -->
-		<div class="container">
-			<div class="row">
-				<!-- title -->
-				<div class="col-12">
-					<h1 class="details__title">I Dream in Another Language</h1>
-				</div>
-				<!-- end title -->
+		<!-- php for movie details -->
+		<?php			
 
-				<!-- content -->
-				<div class="col-12 col-xl-6">
-					<div class="card card--details">
-						<div class="row">
-							<!-- card cover -->
-							<div class="col-12 col-sm-4 col-md-4 col-lg-3 col-xl-5">
-								<div class="card__cover">
-									<img src="img/covers/cover.jpg" alt="">
+			$mid=$_GET["id"];
+			$dataBase = connectDB();
+			$query='SELECT * FROM Movie;';
+			$result=mysqli_query($dataBase,$query) or die('Query failed: '.mysqli_error($dataBase));
+			
+			while ($row = mysqli_fetch_array($result, MYSQL_ASSOC))
+			{
+			extract($row);
+				if($MovieId==$mid){
+					echo '
+						<!-- details content -->
+						<div class="container">
+							<div class="row">
+								<!-- title -->
+								<div class="col-12">
+									<h1 class="details__title">'.$Title.'</h1>
 								</div>
-							</div>
-							<!-- end card cover -->
+								<!-- end title -->
 
-							<!-- card content -->
-							<div class="col-12 col-sm-8 col-md-8 col-lg-9 col-xl-7">
-								<div class="card__content">
-									<div class="card__wrap">
-										<span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
+								<!-- content -->
+								<div class="col-12 col-xl-6">
+									<div class="card card--details">
+										<div class="row">
+											<!-- card cover -->
+											<div class="col-12 col-sm-4 col-md-4 col-lg-3 col-xl-5">
+												<div class="card__cover">
+													<img src="'.$Poster.'" alt="">
+												</div>
+											</div>
+											<!-- end card cover -->
 
-										<ul class="card__list">
-											<li>HD</li>
-											<li>16+</li>
-										</ul>
-									</div>
+											<!-- card content -->
+											<div class="col-12 col-sm-8 col-md-8 col-lg-9 col-xl-7">
+												<div class="card__content">
+													<div class="card__wrap">
+														<span class="card__rate"><i class="icon ion-ios-star"></i>'.$Rating.'</span>
 
-									<ul class="card__meta">
-										<li><span>Genre:</span> <a href="#">Action</a>
-										<a href="#">Triler</a></li>
-										<li><span>Release year:</span> 2017</li>
-										<li><span>Running time:</span> 120 min</li>
-										<li><span>Country:</span> <a href="#">USA</a> </li>
-									</ul>
+														<ul class="card__list">
+															<li>HD</li>
+															<li>16+</li>
+														</ul>
+													</div>
 
-									<div class="card__description card__description--details">
-										It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.
+													<ul class="card__meta">
+														<li><span>Genre:</span>';
+														$dataBase2 = connectDB();
+														$query2='SELECT * FROM Belong b JOIN Category c ON c.CategoryId=b.CategoryId WHERE MovieId="'.$MovieId.'";';
+														$result2=mysqli_query($dataBase2,$query2) or die('Query failed: '.mysqli_error($dataBase));
+
+														while ($row2 = mysqli_fetch_array($result2, MYSQL_ASSOC))
+														{
+														extract($row2);
+															echo '<a href="#">'.$CategoryName.'</a>';
+														}									
+														mysql_close($dataBase2);
+														echo '
+														</li>
+														<li><span>Release year:</span> '.$Year.'</li>
+														<li><span>Running time:</span> 120 min</li>
+														<li><span>Plot: </span> '.$Description.'</li>
+													</ul>
+
+													<div class="card__description card__description--details">
+														
+													</div>
+												</div>
+											</div>
+											<!-- end card content -->
+										</div>
 									</div>
 								</div>
-							</div>
-							<!-- end card content -->
-						</div>
-					</div>
-				</div>
-				<!-- end content -->
-
-				<!-- player -->
+								<!-- end content -->
+					';
+				}
+			}
+			mysql_close($dataBase);
+		?>
+			<!-- end of php -->
+				
+			<!-- player -->
 				<div class="col-12 col-xl-6">
 					<video controls crossorigin playsinline poster="../../../cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg" id="player">
 						<!-- Video files -->

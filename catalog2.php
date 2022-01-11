@@ -67,7 +67,6 @@
 									<ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuCatalog">
 										<li><a href="catalog1.php">Catalog Grid</a></li>
 										<li><a href="catalog2.php">Catalog List</a></li>
-										<li><a href="details1.html">Details Movie</a></li>
 										<li><a href="details2.html">Details TV Series</a></li>
 									</ul>
 								</li>
@@ -290,7 +289,7 @@
 
 							<div class="col-12 col-sm-8">
 								<div class="card__content">
-									<h3 class="card__title"><a href="#">'.$Title.'</a></h3>
+									<h3 class="card__title"><a href="movieDetails.php?id='.$MovieId.'">'.$Title.'</a></h3>
 										<span class="card__category">';
 
 										$dataBase2 = connectDB();
