@@ -348,24 +348,41 @@
 								<div class="col-12">
 									<div class="comments">
 										<ul class="comments__list">
-											<li class="comments__item">
+											<?php
+											$dataBase = connectDB();
+											$query='
+											SELECT * FROM Comment 
+											JOIN User ON Comment.Username=User.Username
+											WHERE MovieId='.$_GET["id"].';';
+											$result=mysqli_query($dataBase,$query) or die('Query failed: '.mysqli_error($dataBase));
+											
+											while ($row = mysqli_fetch_array($result, MYSQL_ASSOC))
+											{
+											extract($row);
+											echo'
+												<li class="comments__item">
 												<div class="comments__autor">
-													<img class="comments__avatar" src="img/user.png" alt="">
-													<span class="comments__name">John Doe</span>
-													<span class="comments__time">30.08.2018, 17:53</span>
+													<img class="comments__avatar" src="img/avatars/avatar'.$Avatar.'.png" alt="Avatar Image">
+													<span class="comments__name"><a href="user.php?user='.$Username.'">'.$Username.'</a></span>
+													<span class="comments__time">'.$CommentTime.'</span>
 												</div>
-												<p class="comments__text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
+												<p class="comments__text">
+												'.$CommentText.'
+												</p>
 												<div class="comments__actions">
 													<div class="comments__rate">
-														<button type="button"><i class="icon ion-md-thumbs-up"></i>12</button>
+														<button type="button"><i class="icon ion-md-thumbs-up"></i>'.$Likes.'</button>
 
-														<button type="button">7<i class="icon ion-md-thumbs-down"></i></button>
+														<button type="button">'.$Dislikes.'<i class="icon ion-md-thumbs-down"></i></button>
 													</div>
 
 													<button type="button"><i class="icon ion-ios-share-alt"></i>Reply</button>
 													<button type="button"><i class="icon ion-ios-quote"></i>Quote</button>
 												</div>
-											</li>
+											</li>';
+											}
+											mysql_close($dataBase);
+											?>
 
 											<li class="comments__item comments__item--answer">
 												<div class="comments__autor">
@@ -400,44 +417,6 @@
 														<button type="button">1<i class="icon ion-md-thumbs-down"></i></button>
 													</div>
 
-													<button type="button"><i class="icon ion-ios-share-alt"></i>Reply</button>
-													<button type="button"><i class="icon ion-ios-quote"></i>Quote</button>
-												</div>
-											</li>
-
-											<li class="comments__item">
-												<div class="comments__autor">
-													<img class="comments__avatar" src="img/user.png" alt="">
-													<span class="comments__name">John Doe</span>
-													<span class="comments__time">07.08.2018, 14:33</span>
-												</div>
-												<p class="comments__text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
-												<div class="comments__actions">
-													<div class="comments__rate">
-														<button type="button"><i class="icon ion-md-thumbs-up"></i>99</button>
-
-														<button type="button">35<i class="icon ion-md-thumbs-down"></i></button>
-													</div>
-
-													<button type="button"><i class="icon ion-ios-share-alt"></i>Reply</button>
-													<button type="button"><i class="icon ion-ios-quote"></i>Quote</button>
-												</div>
-											</li>
-
-											<li class="comments__item">
-												<div class="comments__autor">
-													<img class="comments__avatar" src="img/user.png" alt="">
-													<span class="comments__name">John Doe</span>
-													<span class="comments__time">02.08.2018, 15:24</span>
-												</div>
-												<p class="comments__text">Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
-												<div class="comments__actions">
-													<div class="comments__rate">
-														<button type="button"><i class="icon ion-md-thumbs-up"></i>74</button>
-
-														<button type="button">13<i class="icon ion-md-thumbs-down"></i></button>
-													</div>
-													
 													<button type="button"><i class="icon ion-ios-share-alt"></i>Reply</button>
 													<button type="button"><i class="icon ion-ios-quote"></i>Quote</button>
 												</div>
