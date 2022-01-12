@@ -139,12 +139,12 @@
 				<div class="col-12">
 					<div class="section__wrap">
 						<!-- section title -->
-						<h2 class="section__title">Section A</h2>
+						<h2 class="section__title">
+							<?php
+								echo $_GET['user'];
+							?>
+						</h2>
 						<!-- end section title -->
-
-						<!-- change to list -->
-						<button class="filter__btn" type="button"><a href="catalog2.php" style="color:white;">List</a></button>
-						<!-- end changer -->
 					</div>
 				</div>
 			</div>
