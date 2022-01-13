@@ -1,5 +1,7 @@
 <?php 
 	include ("connectToDB.inc");
+	
+	$actualPage=$_GET['page'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -179,40 +181,54 @@
 				$query='SELECT * FROM Watched w JOIN Movie m ON m.MovieId=w.MovieId WHERE w.Username="'
 				.$_GET["user"].'" ORDER BY WatchedDate DESC;';
 				$result=mysqli_query($dataBase,$query) or die('Query failed: '.mysqli_error($dataBase));
+				$movies=0;
+				$moviesToSkip=($actualPage-1)*6;
+					$skippedMovies=0;
+					$moviesDisplayed=0;
 
 				while ($row = mysqli_fetch_array($result, MYSQL_ASSOC))
 				{
 				extract($row);
 					echo '
-					<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-						<div class="card">
-							<div class="card__cover">
-								<img src="'.$Poster.'" alt="">
-								<a href="#" class="card__play">
-									<i class="icon ion-ios-play"></i>
-								</a>
-							</div>
-							<div class="card__content">
-								<h3 class="card__title"><a href="movieDetails.php?id='.$MovieId.'">'.$Title.'</a></h3>
-								<span class="card__category">';
-	
-								$dataBase2 = connectDB();
-								$query2='SELECT * FROM Belong b JOIN Category c ON c.CategoryId=b.CategoryId WHERE MovieId="'.$MovieId.'";';
-								$result2=mysqli_query($dataBase2,$query2) or die("Query failed: ".mysqli_error($dataBase2));
-				
-								while ($row2 = mysqli_fetch_array($result2, MYSQL_ASSOC))
-								{
-								extract($row2);
-								echo '<a href="#">'.$CategoryName.'</a>';
-								}    
-	
-								mysql_close($dataBase2);
-								echo '
-								</span>
-								<span class="card__rate"><i class="icon ion-ios-star"></i>'.$Rating.'</span>
-							</div>
+					<div class="col-6 col-sm-4 col-lg-3 col-xl-2">';
+
+					
+
+					if($moviesToSkip==$skippedMovies && $moviesDisplayed<6){
+						echo '<div class="card">
+						<div class="card__cover">
+							<img src="'.$Poster.'" alt="">
+							<a href="#" class="card__play">
+								<i class="icon ion-ios-play"></i>
+							</a>
+						</div>
+						<div class="card__content">
+							<h3 class="card__title"><a href="movieDetails.php?id='.$MovieId.'">'.$Title.'</a></h3>
+							<span class="card__category">';
+
+							$dataBase2 = connectDB();
+							$query2='SELECT * FROM Belong b JOIN Category c ON c.CategoryId=b.CategoryId WHERE MovieId="'.$MovieId.'";';
+							$result2=mysqli_query($dataBase2,$query2) or die("Query failed: ".mysqli_error($dataBase2));
+			
+							while ($row2 = mysqli_fetch_array($result2, MYSQL_ASSOC))
+							{
+							extract($row2);
+							echo '<a href="#">'.$CategoryName.'</a>';
+							}    
+
+							mysql_close($dataBase2);
+							echo '
+							</span>
+							<span class="card__rate"><i class="icon ion-ios-star"></i>'.$Rating.'</span>
 						</div>
 					</div>';
+					$moviesDisplayed++;
+					}else{
+						$skippedMovies++;
+					}
+
+					echo '</div>';
+					$movies=$movies+1;
 				}								
 				mysql_close($dataBase);
 				?>
@@ -220,18 +236,61 @@
 
 				<!-- paginator -->
 				<div class="col-12">
-					<ul class="paginator">
-						<li class="paginator__item paginator__item--prev">
-							<a href="#"><i class="icon ion-ios-arrow-back"></i></a>
-						</li>
-						<li class="paginator__item"><a href="#">1</a></li>
-						<li class="paginator__item paginator__item--active"><a href="#">2</a></li>
-						<li class="paginator__item"><a href="#">3</a></li>
-						<li class="paginator__item"><a href="#">4</a></li>
-						<li class="paginator__item paginator__item--next">
-							<a href="#"><i class="icon ion-ios-arrow-forward"></i></a>
-						</li>
-					</ul>
+					
+				<?php
+					if($movies%6==0){
+						$numberPages=intdiv($movies,6);
+					}else{
+						$numberPages=intdiv($movies,6)+1;
+					}
+
+					
+					if($numberPages>0){
+						echo '<ul class="paginator">';
+
+						if($actualPage!=1){					
+							echo '<li class="paginator__item paginator__item--prev">
+							<a href="user.php?user=';
+
+							echo $_GET['user'];
+							echo '&page=';
+							$actualPage=$_GET["page"];
+							$prevPage=$actualPage-1;
+							echo $prevPage;
+							echo'
+							"><i class="icon ion-ios-arrow-back"></i></a>
+						</li>';
+						}
+
+										
+					for ($i = 1; $i <= $numberPages; $i++) {
+						echo '<li class="paginator__item';
+						if($i==$_GET['page']){
+							echo ' paginator__item--active';
+						}
+						echo '"><a href="user.php?user=';
+						echo $_GET['user'];
+						echo '&page='.$i.'">'.$i.'</a></li>';
+					}
+					
+					if($actualPage!=$numberPages){		
+						echo '<li class="paginator__item paginator__item--prev">
+						<a href="user.php?user=';
+
+						echo $_GET['user'];
+						echo '&page=';
+						$actualPage=$_GET["page"];
+						$prevPage=$actualPage+1;
+						echo $prevPage;
+						echo'
+						"><i class="icon ion-ios-arrow-forward"></i></a></li>';
+					}
+					
+					echo '</ul>';
+				}
+				?>
+						
+					
 				</div>
 				<!-- end paginator -->
 			</div>
@@ -266,7 +325,7 @@
 								<img src="img/avatars/avatar'.$Avatar.'.png" alt="Avatar Image" width="100px">
 							</div>
 							<div class="card__content">
-								<h3 class="card__title"><a href="user.php?user='.$UserFollowed.'">'.$UserFollowed.'</a></h3>
+								<h3 class="card__title"><a href="user.php?user='.$UserFollowed.'&page=1">'.$UserFollowed.'</a></h3>
 								<span class="card__category">
 								</span>
 								<span class="card__rate"></span>

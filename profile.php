@@ -283,7 +283,7 @@ mysql_close($dataBase);
 								<img src="img/avatars/avatar'.$Avatar.'.png" alt="Avatar Image" width="100px">
 							</div>
 							<div class="card__content">
-								<h3 class="card__title"><a href="user.php?user='.$UserFollowed.'">'.$UserFollowed.'</a></h3>
+								<h3 class="card__title"><a href="user.php?user='.$UserFollowed.'&page=1">'.$UserFollowed.'</a></h3>
 								<span class="card__category">
 								</span>
 								<span class="card__rate"></span>
