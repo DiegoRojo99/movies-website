@@ -71,7 +71,7 @@
 								</li>
 
 								<li class="header__nav-item">
-									<a href="faq.html" class="header__nav-link">Help</a>
+									<a href="profile.php" class="header__nav-link">Profile</a>
 								</li>
 
 								<!-- dropdown -->

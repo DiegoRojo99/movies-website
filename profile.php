@@ -1,5 +1,23 @@
 <?php 
-	include ("connectToDB.inc");
+	
+include ("connectToDB.inc");
+
+$dataBase = connectDB();
+
+$query='SELECT * FROM User WHERE Username="'.$_COOKIE["userLog"].'";';
+$result=mysqli_query($dataBase,$query) or die('Query failed: '.mysqli_error($dataBase));
+
+$userLog=$_COOKIE["userLog"];
+
+while ($row = mysqli_fetch_array($result, MYSQL_ASSOC))
+{
+	extract($row);
+	$u=$Username;
+	$a=$Avatar;
+	$e=$Email;
+	$p=$Password;
+}								
+mysql_close($dataBase);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -139,12 +157,12 @@
 				<div class="col-12">
 					<div class="section__wrap">
 						<!-- section title -->
-						<h2 class="section__title">Catalog Grid</h2>
+						<h2 class="section__title">
+							<?php
+								echo $userLog;
+							?>
+						</h2>
 						<!-- end section title -->
-
-						<!-- change to list -->
-						<button class="filter__btn" type="button"><a href="catalog2.php" style="color:white;">List</a></button>
-						<!-- end changer -->
 					</div>
 				</div>
 			</div>
@@ -157,101 +175,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
-					<div class="filter__content">
-						<div class="filter__items">
-							<!-- filter item -->
-							<div class="filter__item" id="filter__genre">
-								<span class="filter__item-label">GENRE:</span>
-
-								<div class="filter__item-btn dropdown-toggle" role="navigation" id="filter-genre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									<input type="button" value="Action">
-									<span></span>
-								</div>
-
-								<ul class="filter__item-menu dropdown-menu scrollbar-dropdown" aria-labelledby="filter-genre">
-								<?php 
-									$dataBase = connectDB();
-									$query='SELECT * FROM Category;';
-									$result=mysqli_query($dataBase,$query) or die('Query failed: '.mysqli_error($dataBase));
-
-									while ($row = mysqli_fetch_array($result, MYSQL_ASSOC))
-									{
-									extract($row);
-										echo "<li>$CategoryName</li>";
-									}									
-									mysql_close($dataBase);
-								?>
-								</ul>
-							</div>
-							<!-- end filter item -->
-
-							<!-- filter item -->
-							<div class="filter__item" id="filter__quality">
-								<span class="filter__item-label">STREAMING APP:</span>
-
-								<div class="filter__item-btn dropdown-toggle" role="navigation" id="filter-quality" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									<input type="button" value="NETFLIX">
-									<span></span>
-								</div>
-
-								<ul class="filter__item-menu dropdown-menu scrollbar-dropdown" aria-labelledby="filter-quality">
-								<?php 
-									$dataBase = connectDB();
-									$query='SELECT * FROM StreamingService;';
-									$result=mysqli_query($dataBase,$query) or die('Query failed: '.mysqli_error($dataBase));
-
-									while ($row = mysqli_fetch_array($result, MYSQL_ASSOC))
-									{
-									extract($row);
-										echo "<li>$StreamingName</li>";
-									}									
-									mysql_close($dataBase);
-								?>
-								</ul>
-							</div>
-							<!-- end filter item -->
-
-							<!-- filter item -->
-							<div class="filter__item" id="filter__rate">
-								<span class="filter__item-label">IMBd:</span>
-
-								<div class="filter__item-btn dropdown-toggle" role="button" id="filter-rate" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									<div class="filter__range">
-										<div id="filter__imbd-start"></div>
-										<div id="filter__imbd-end"></div>
-									</div>
-									<span></span>
-								</div>
-
-								<div class="filter__item-menu filter__item-menu--range dropdown-menu" aria-labelledby="filter-rate">
-									<div id="filter__imbd"></div>
-								</div>
-							</div>
-							<!-- end filter item -->
-
-							<!-- filter item -->
-							<div class="filter__item" id="filter__year">
-								<span class="filter__item-label">RELEASE YEAR:</span>
-
-								<div class="filter__item-btn dropdown-toggle" role="button" id="filter-year" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									<div class="filter__range">
-										<div id="filter__years-start"></div>
-										<div id="filter__years-end"></div>
-									</div>
-									<span></span>
-								</div>
-
-								<div class="filter__item-menu filter__item-menu--range dropdown-menu" aria-labelledby="filter-year">
-									<div id="filter__years"></div>
-								</div>
-							</div>
-							<!-- end filter item -->
-						</div>
-						
-						<!-- filter btn -->
-						<button class="filter__btn" type="button">apply filter</button>
-						<!-- end filter btn -->
-					</div>
+				<h2 class="section__title">Section B</h2>
 				</div>
 			</div>
 		</div>
@@ -261,49 +185,55 @@
 	<!-- catalog -->
 	<div class="catalog">
 		<div class="container">
+			<h2 class="section__title">Movies Recently Watched</h2>
 			<div class="row">
-			<?php 
 			
-			$dataBase = connectDB();
-			$query='SELECT * FROM Movie;';
-			$result=mysqli_query($dataBase,$query) or die('Query failed: '.mysqli_error($dataBase));
 
-			while ($row = mysqli_fetch_array($result, MYSQL_ASSOC))
-			{
-			extract($row);
-				echo '
-				<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-					<div class="card">
-						<div class="card__cover">
-							<img src="'.$Poster.'" alt="">
-							<a href="#" class="card__play">
-								<i class="icon ion-ios-play"></i>
-							</a>
-						</div>
-						<div class="card__content">
-							<h3 class="card__title"><a href="movieDetails.php?id='.$MovieId.'">'.$Title.'</a></h3>
-							<span class="card__category">';
+				<!-- cards -->
+				<?php
 
-							$dataBase2 = connectDB();
-							$query2='SELECT * FROM Belong b JOIN Category c ON c.CategoryId=b.CategoryId WHERE MovieId="'.$MovieId.'";';
-							$result2=mysqli_query($dataBase2,$query2) or die("Query failed: ".mysqli_error($dataBase2));
+				$dataBase = connectDB();
 			
-							while ($row2 = mysqli_fetch_array($result2, MYSQL_ASSOC))
-							{
-							extract($row2);
-							echo '<a href="#">'.$CategoryName.'</a>';
-							}    
+				$query='SELECT * FROM Watched w JOIN Movie m ON m.MovieId=w.MovieId WHERE w.Username="'.$userLog.'" ORDER BY WatchedDate DESC;';
+				$result=mysqli_query($dataBase,$query) or die('Query failed: '.mysqli_error($dataBase));
 
-							mysql_close($dataBase2);
-							echo '
-							</span>
-							<span class="card__rate"><i class="icon ion-ios-star"></i>'.$Rating.'</span>
+				while ($row = mysqli_fetch_array($result, MYSQL_ASSOC))
+				{
+				extract($row);
+					echo '
+					<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+						<div class="card">
+							<div class="card__cover">
+								<img src="'.$Poster.'" alt="">
+								<a href="#" class="card__play">
+									<i class="icon ion-ios-play"></i>
+								</a>
+							</div>
+							<div class="card__content">
+								<h3 class="card__title"><a href="movieDetails.php?id='.$MovieId.'">'.$Title.'</a></h3>
+								<span class="card__category">';
+	
+								$dataBase2 = connectDB();
+								$query2='SELECT * FROM Belong b JOIN Category c ON c.CategoryId=b.CategoryId WHERE MovieId="'.$MovieId.'";';
+								$result2=mysqli_query($dataBase2,$query2) or die("Query failed: ".mysqli_error($dataBase2));
+				
+								while ($row2 = mysqli_fetch_array($result2, MYSQL_ASSOC))
+								{
+								extract($row2);
+								echo '<a href="#">'.$CategoryName.'</a>';
+								}    
+	
+								mysql_close($dataBase2);
+								echo '
+								</span>
+								<span class="card__rate"><i class="icon ion-ios-star"></i>'.$Rating.'</span>
+							</div>
 						</div>
-					</div>
-				</div>';
-			}
-			mysql_close($dataBase);
-			?>
+					</div>';
+				}								
+				mysql_close($dataBase);
+				?>
+				<!-- end cards -->
 
 				<!-- paginator -->
 				<div class="col-12">
@@ -332,7 +262,7 @@
 			<div class="row">
 				<!-- section title -->
 				<div class="col-12">
-					<h2 class="section__title">Expected premiere</h2>
+					<h2 class="section__title">People Followed</h2>
 				</div>
 				<!-- end section title -->
 
@@ -341,56 +271,29 @@
 
 				$dataBase = connectDB();
 			
-				// Return current date from the remote server
-				$date = date('y-m-d');
-
-				$query='SELECT DISTINCT * FROM Movie WHERE ReleaseDate>"'.$date.'" ORDER BY ReleaseDate;';
+				$query='SELECT * FROM Follower f JOIN User u ON f.userFollowed=u.Username WHERE f.User="'.$userLog.'";';
 				$result=mysqli_query($dataBase,$query) or die('Query failed: '.mysqli_error($dataBase));
-				$cards=0;
 
-				while ($row = mysqli_fetch_array($result, MYSQL_ASSOC) and $cards<6)
+				while ($row = mysqli_fetch_array($result, MYSQL_ASSOC))
 				{
 					extract($row);
 					echo '<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
 						<div class="card">
 							<div class="card__cover">
-								<img src="'.$Poster.'" alt="">
-								<a href="#" class="card__play">
-									<i class="icon ion-ios-play"></i>
-								</a>
+								<img src="img/avatars/avatar'.$Avatar.'.png" alt="Avatar Image" width="100px">
 							</div>
 							<div class="card__content">
-								<h3 class="card__title"><a href="movieDetails.php?id='.$MovieId.'">'.$Title.'</a></h3>
-								<span class="card__category">';
-
-								$dataBase2 = connectDB();
-								$query2='SELECT * FROM Belong b JOIN Category c ON c.CategoryId=b.CategoryId WHERE MovieId="'.$MovieId.'";';
-								$result2=mysqli_query($dataBase2,$query2) or die("Query failed: ".mysqli_error($dataBase2));
-				
-								while ($row2 = mysqli_fetch_array($result2, MYSQL_ASSOC))
-								{
-								extract($row2);
-								echo '<a href="#">'.$CategoryName.'</a>';
-								}    
-
-								mysql_close($dataBase2);
-								echo '
+								<h3 class="card__title"><a href="user.php?user='.$UserFollowed.'">'.$UserFollowed.'</a></h3>
+								<span class="card__category">
 								</span>
-								<span class="card__rate">'.$ReleaseDate.'</span>
+								<span class="card__rate"></span>
 							</div>
 						</div>
 					</div>';
-					$cards=1+$cards;
 				}									
 				mysql_close($dataBase);
 				?>
 				<!-- end cards -->
-
-				<!-- section btn -->
-				<div class="col-12">
-					<a href="#" class="section__btn">Show more</a>
-				</div>
-				<!-- end section btn -->
 			</div>
 		</div>
 	</section>

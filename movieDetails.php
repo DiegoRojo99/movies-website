@@ -238,23 +238,26 @@
 				
 			<!-- player -->
 				<div class="col-12 col-xl-6">
-					<video controls crossorigin playsinline poster="../../../cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg" id="player">
-						<!-- Video files -->
-						<source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4" type="video/mp4" size="576">
-						<source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4" type="video/mp4" size="720">
-						<source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1080p.mp4" type="video/mp4" size="1080">
-						<source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1440p.mp4" type="video/mp4" size="1440">
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/
+					<?php 
+						$dataBase3 = connectDB();
+						$query3='SELECT * FROM Movie WHERE MovieId='.$_GET["id"].';';
+						$result3=mysqli_query($dataBase3,$query3) or die('Query failed: '.mysqli_error($dataBase3));
 
-						<!-- Caption files -->
-						<track kind="captions" label="English" srclang="en" src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.en.vtt"
-						    default>
-						<track kind="captions" label="Français" srclang="fr" src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.fr.vtt">
+						while ($row3 = mysqli_fetch_array($result3, MYSQL_ASSOC))
+						{
+							extract($row3);	
+							echo $Trailer;
+						}
+						mysql_close($dataBase3);
+					?>
+					" 
+				title="YouTube video player" frameborder="0" 
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
 
-						<!-- Fallback for browsers that don't support the <video> element -->
-						<a href="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4" download>Download</a>
-					</video>
+				</iframe>
 				</div>
-				<!-- end player -->
+			<!-- end player -->
 
 				<div class="col-12">
 					<div class="details__wrap">
