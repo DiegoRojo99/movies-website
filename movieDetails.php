@@ -4,6 +4,11 @@
 	$ct=$_POST['commentText'];
 	$u=$_COOKIE['userLog'];
 	$i=$_GET['id'];
+	$rt=$_POST['ReviewText'];	
+	$rt2=$_POST['ReviewTitle'];
+	$rr=$_POST['ReviewRating'];
+
+	echo "<h1>THE VALUE OF RR IS".$rr." </h1>";
 
 	if(isset($ct)){
 		$dataBase = connectDB();
@@ -11,6 +16,15 @@
 		$q2='","';
 		$q3='");';
 		$query=$q1.$i.$q2.$u.$q2.$ct.$q3;
+		$result=mysqli_query($dataBase,$query) or die('Query failed: '.mysqli_error($dataBase));
+
+		mysql_close($dataBase);
+	}else if(isset($rt)){
+		$dataBase = connectDB();
+		$q1='INSERT INTO Review(MovieId, Username, ReviewTitle, ReviewText, ReviewRating)  VALUES("';
+		$q2='","';
+		$q3='");';
+		$query=$q1.$i.$q2.$u.$q2.$rt2.$q2.$rt.$q2.$rr.$q3;
 		$result=mysqli_query($dataBase,$query) or die('Query failed: '.mysqli_error($dataBase));
 
 		mysql_close($dataBase);
@@ -426,48 +440,48 @@
 								<div class="col-12">
 									<div class="reviews">
 										<ul class="reviews__list">
-											<li class="reviews__item">
+										<?php
+											$dataBase = connectDB();
+											$query='
+											SELECT * FROM Review 
+											JOIN User ON Review.Username=User.Username
+											WHERE MovieId='.$_GET["id"].'
+											ORDER BY ReviewTime DESC;';
+											$result=mysqli_query($dataBase,$query) or die('Query failed: '.mysqli_error($dataBase));
+											
+											while ($row = mysqli_fetch_array($result, MYSQL_ASSOC))
+											{
+											extract($row);
+											echo'
+												<li class="reviews__item">
 												<div class="reviews__autor">
-													<img class="reviews__avatar" src="img/user.png" alt="">
-													<span class="reviews__name">Best Marvel movie in my opinion</span>
-													<span class="reviews__time">24.08.2018, 17:53 by John Doe</span>
+													<img class="reviews__avatar" src="img/avatars/avatar'.$Avatar.'.png" alt="Avatar Image">
+													<span class="reviews__name">'.$ReviewTitle.'</span>
+													<span class="reviews__time">'.$ReviewTime.' by <a href="user.php?user='.$Username.'">'.$Username.'</a></span>
 
-													<span class="reviews__rating"><i class="icon ion-ios-star"></i>8.4</span>
+													<span class="reviews__rating"><i class="icon ion-ios-star"></i>'.$ReviewRating.'</span>
 												</div>
-												<p class="reviews__text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
-											</li>
-
-											<li class="reviews__item">
-												<div class="reviews__autor">
-													<img class="reviews__avatar" src="img/user.png" alt="">
-													<span class="reviews__name">Best Marvel movie in my opinion</span>
-													<span class="reviews__time">24.08.2018, 17:53 by John Doe</span>
-
-													<span class="reviews__rating"><i class="icon ion-ios-star"></i>9.0</span>
-												</div>
-												<p class="reviews__text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
-											</li>
-
-											<li class="reviews__item">
-												<div class="reviews__autor">
-													<img class="reviews__avatar" src="img/user.png" alt="">
-													<span class="reviews__name">Best Marvel movie in my opinion</span>
-													<span class="reviews__time">24.08.2018, 17:53 by John Doe</span>
-
-													<span class="reviews__rating"><i class="icon ion-ios-star"></i>7.5</span>
-												</div>
-												<p class="reviews__text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
-											</li>
+												<p class="reviews__text">'.$ReviewText.'</p>
+											</li>';
+											}
+											mysql_close($dataBase);
+											?>
 										</ul>
 
-										<form action="#" class="form">
-											<input type="text" class="form__input" placeholder="Title">
-											<textarea class="form__textarea" placeholder="Review"></textarea>
+										<form action="movieDetails.php?id=
+										<?php
+											echo $_GET['id'];
+										?>
+										" class="form" method="post">
+											<input type="text" class="form__input" name="ReviewTitle" placeholder="Title">
+											<textarea class="form__textarea" name="ReviewText"cplaceholder="Review"></textarea>
 											<div class="form__slider">
 												<div class="form__slider-rating" id="slider__rating"></div>
-												<div class="form__slider-value" id="form__slider-value"></div>
+												<div class="form__slider-value" id="form__slider-value" name="ReviewRating">
+													<input type="range" id="ReviewRating" name="ReviewRating" min="0" max="10">
+												</div>
 											</div>
-											<button type="button" class="form__btn">Send</button>
+											<button type="submit" class="form__btn">Send</button>
 										</form>
 									</div>
 								</div>

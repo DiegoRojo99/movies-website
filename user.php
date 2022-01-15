@@ -289,8 +289,7 @@
 					echo '</ul>';
 				}
 				?>
-						
-					
+											
 				</div>
 				<!-- end paginator -->
 			</div>
