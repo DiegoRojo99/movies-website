@@ -8,8 +8,6 @@
 	$rt2=$_POST['ReviewTitle'];
 	$rr=$_POST['ReviewRating'];
 
-	echo "<h1>THE VALUE OF RR IS".$rr." </h1>";
-
 	if(isset($ct)){
 		$dataBase = connectDB();
 		$q1='INSERT INTO Comment(MovieId, Username, CommentText)  VALUES("';
@@ -475,11 +473,13 @@
 										" class="form" method="post">
 											<input type="text" class="form__input" name="ReviewTitle" placeholder="Title">
 											<textarea class="form__textarea" name="ReviewText"cplaceholder="Review"></textarea>
+
 											<div class="form__slider">
-												<div class="form__slider-rating" id="slider__rating"></div>
-												<div class="form__slider-value" id="form__slider-value" name="ReviewRating">
-													<input type="range" id="ReviewRating" name="ReviewRating" min="0" max="10">
-												</div>
+												<input class="form__slider-rating" id="slider__rating" type="range" id="ReviewRating" 
+												name="ReviewRating" type="range" value="8.6" min="1" max="10" step="0.1"
+												oninput="this.nextElementSibling.value = this.value">
+												<output class="form__slider-value" id="form__slider-value">8.6</output>
+											</div>
 											</div>
 											<button type="submit" class="form__btn">Send</button>
 										</form>
