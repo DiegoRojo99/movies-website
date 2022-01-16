@@ -304,10 +304,26 @@
 							<span class="details__share-title">Share with friends:</span>
 
 							<ul class="details__share-list">
-								<li class="facebook"><a href="#"><i class="icon ion-logo-facebook"></i></a></li>
-								<li class="instagram"><a href="#"><i class="icon ion-logo-instagram"></i></a></li>
-								<li class="twitter"><a href="#"><i class="icon ion-logo-twitter"></i></a></li>
-								<li class="vk"><a href="#"><i class="icon ion-logo-vk"></i></a></li>
+								<!-- li class="facebook"><a href="#"><i class="icon ion-logo-facebook"></i></a></li>
+								<li class="instagram"><a href="#"><i class="icon ion-logo-instagram"></i></a></li>--><
+								<li class="twitter">
+									<a href="https://twitter.com/intent/tweet?text=Check%20this%20film&url=http://diego-rojo.epizy.com/movies-website/movieDetails.php?id=
+									<?php
+									echo $_GET['id'];
+									?>
+									">
+										<i class="icon ion-logo-twitter"></i>
+									</a>
+								</li>
+								<li class="whatsapp">
+									<a href="whatsapp://send?text=http://diego-rojo.epizy.com/movies-website/movieDetails.php?id=
+									<?php
+									echo $_GET['id'];
+									?>
+									">
+										<i class="icon ion-logo-whatsapp"></i>
+									</a>
+								</li>
 							</ul>
 						</div>
 						<!-- end share -->
@@ -742,7 +758,11 @@
 						<li class="facebook"><a href="#"><i class="icon ion-logo-facebook"></i></a></li>
 						<li class="instagram"><a href="#"><i class="icon ion-logo-instagram"></i></a></li>
 						<li class="twitter"><a href="#"><i class="icon ion-logo-twitter"></i></a></li>
-						<li class="vk"><a href="#"><i class="icon ion-logo-vk"></i></a></li>
+						<li class="whatsapp">
+							<a href="whatsapp://send?text=http://diego-rojo.epizy.com/movies-website/index.php">
+								<i class="icon ion-logo-whatsapp"></i>
+							</a>
+						</li>
 					</ul>
 				</div>
 				<!-- end footer list -->

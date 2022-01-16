@@ -471,7 +471,11 @@
 						<li class="facebook"><a href="#"><i class="icon ion-logo-facebook"></i></a></li>
 						<li class="instagram"><a href="#"><i class="icon ion-logo-instagram"></i></a></li>
 						<li class="twitter"><a href="#"><i class="icon ion-logo-twitter"></i></a></li>
-						<li class="vk"><a href="#"><i class="icon ion-logo-vk"></i></a></li>
+						<li class="whatsapp">
+							<a href="whatsapp://send?text=http://diego-rojo.epizy.com/movies-website/index.php">
+								<i class="icon ion-logo-whatsapp"></i>
+							</a>
+						</li>
 					</ul>
 				</div>
 				<!-- end footer list -->
