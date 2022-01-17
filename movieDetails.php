@@ -411,7 +411,7 @@
 												<li class="comments__item">
 												<div class="comments__autor">
 													<img class="comments__avatar" src="img/avatars/avatar'.$Avatar.'.png" alt="Avatar Image">
-													<span class="comments__name"><a href="user.php?user='.$Username.'">'.$Username.'</a></span>
+													<span class="comments__name"><a href="user.php?user='.$Username.'&page=1">'.$Username.'</a></span>
 													<span class="comments__time">'.$CommentTime.'</span>
 												</div>
 												<p class="comments__text">
@@ -471,7 +471,7 @@
 												<div class="reviews__autor">
 													<img class="reviews__avatar" src="img/avatars/avatar'.$Avatar.'.png" alt="Avatar Image">
 													<span class="reviews__name">'.$ReviewTitle.'</span>
-													<span class="reviews__time">'.$ReviewTime.' by <a href="user.php?user='.$Username.'">'.$Username.'</a></span>
+													<span class="reviews__time">'.$ReviewTime.' by <a href="user.php?user='.$Username.'&page=1">'.$Username.'</a></span>
 
 													<span class="reviews__rating"><i class="icon ion-ios-star"></i>'.$ReviewRating.'</span>
 												</div>
