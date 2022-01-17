@@ -175,7 +175,24 @@ mysql_close($dataBase);
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
-				<h2 class="section__title">Section B</h2>
+				<h2 class="section__title"></h2>
+					<!-- change avatar -->
+					<button class="filter__btn" type="button"><a href="avatar.php?avatar=
+					<?php
+					$dataBase = connectDB();
+			
+					$query='SELECT * FROM User WHERE Username="'.$_COOKIE["userLog"].'";';
+					$result=mysqli_query($dataBase,$query) or die('Query failed: '.mysqli_error($dataBase));
+	
+					while ($row = mysqli_fetch_array($result, MYSQL_ASSOC))
+					{
+						extract($row);
+						echo $Avatar;
+					}									
+					mysql_close($dataBase);
+					?>
+					" style="color:white;">Change Avatar</a></button>
+					<!-- end changer -->
 				</div>
 			</div>
 		</div>
@@ -266,12 +283,12 @@ mysql_close($dataBase);
 				</div>
 				<!-- end section title -->
 
-				<!-- cards -->
+				<!-- followers -->
 				<?php
 
 				$dataBase = connectDB();
 			
-				$query='SELECT * FROM Follower f JOIN User u ON f.userFollowed=u.Username WHERE f.User="'.$userLog.'";';
+				$query='SELECT * FROM Follower f JOIN User u ON f.UserFollowed=u.Username JOIN Avatar a ON u.Avatar=a.AvatarId WHERE f.UserFollower="'.$userLog.'";';
 				$result=mysqli_query($dataBase,$query) or die('Query failed: '.mysqli_error($dataBase));
 
 				while ($row = mysqli_fetch_array($result, MYSQL_ASSOC))
@@ -280,7 +297,7 @@ mysql_close($dataBase);
 					echo '<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
 						<div class="card">
 							<div class="card__cover">
-								<img src="img/avatars/avatar'.$Avatar.'.png" alt="Avatar Image" width="100px">
+								<img src="img/avatars/'.$AvatarLogo.'" alt="Avatar Image" width="100px">
 							</div>
 							<div class="card__content">
 								<h3 class="card__title"><a href="user.php?user='.$UserFollowed.'&page=1">'.$UserFollowed.'</a></h3>
@@ -293,7 +310,7 @@ mysql_close($dataBase);
 				}									
 				mysql_close($dataBase);
 				?>
-				<!-- end cards -->
+				<!-- end followers -->
 			</div>
 		</div>
 	</section>

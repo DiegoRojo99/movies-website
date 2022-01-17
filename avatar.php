@@ -1,7 +1,16 @@
 <?php 
 	include ("connectToDB.inc");
 	
-	$actualPage=$_GET['page'];
+	$avatarSelected=$_GET['avatar'];
+	$usernameAvatared=$_COOKIE['userLog'];
+
+	$dataBase = connectDB();
+
+	$query= 'UPDATE User SET Avatar='.$avatarSelected.' WHERE Username = "'.$usernameAvatared.'";';
+	$result=mysqli_query($dataBase,$query) or die('Query failed: '.mysqli_error($dataBase));
+
+	mysql_close($dataBase);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -142,9 +151,7 @@
 					<div class="section__wrap">
 						<!-- section title -->
 						<h2 class="section__title">
-							<?php
-								echo $_GET['user'];
-							?>
+							Select your avatar:
 						</h2>
 						<!-- end section title -->
 					</div>
@@ -154,308 +161,40 @@
 	</section>
 	<!-- end page title -->
 
-	<!-- filter -->
-	<div class="filter">
-		<div class="container">
-			<div class="row">
-				<div class="col-12">
-				<h2 class="section__title">Recently Reviewed Movies</h2>
-				<div class="row">
-			
-				<!-- cards -->
-				<?php
-
-				$dataBase = connectDB();
-			
-				$query='SELECT * FROM Review r JOIN Movie m ON m.MovieId=r.MovieId 
-				WHERE r.Username="'.$_GET["user"].'";';
-				$result=mysqli_query($dataBase,$query) or die('Query failed: '.mysqli_error($dataBase));
-				$movies1=0;
-				$moviesToSkip1=($actualPage-1)*6;
-				$skippedMovies1=0;
-				$moviesDisplayed1=0;
-
-				while ($row = mysqli_fetch_array($result, MYSQL_ASSOC))
-				{
-				extract($row);
-					echo '
-					<div class="col-6 col-sm-4 col-lg-3 col-xl-2">';
-				
-					if($moviesToSkip1==$skippedMovies1 && $moviesDisplayed1<6){
-						echo '<div class="card">
-						<div class="card__cover">
-							<img src="'.$Poster.'" alt="">
-							<a href="#" class="card__play">
-								<i class="icon ion-ios-play"></i>
-							</a>
-						</div>
-						<div class="card__content">
-							<h3 class="card__title"><a href="movieDetails.php?id='.$MovieId.'">'.$Title.'</a></h3>
-							<span class="card__category">';
-
-							$dataBase2 = connectDB();
-							$query2='SELECT * FROM Belong b JOIN Category c ON c.CategoryId=b.CategoryId WHERE MovieId="'.$MovieId.'";';
-							$result2=mysqli_query($dataBase2,$query2) or die("Query failed: ".mysqli_error($dataBase2));
-			
-							while ($row2 = mysqli_fetch_array($result2, MYSQL_ASSOC))
-							{
-							extract($row2);
-							echo '<a href="#">'.$CategoryName.'</a>';
-							}    
-
-							mysql_close($dataBase2);
-							echo '
-							</span>
-							<span class="card__rate"><i class="icon ion-ios-star"></i>'.$ReviewRating.'</span>
-						</div>
-					</div>';
-					$moviesDisplayed1++;
-					}else{
-						$skippedMovies1++;
-					}
-
-					echo '</div>';
-					$movies1=$movies1+1;
-				}								
-				mysql_close($dataBase);
-				?>
-				<!-- end cards -->
-
-				<!-- paginator -->
-				<div class="col-12">
-				<?php
-					if($movies1%6==0){
-						$numberPages1=intdiv($movies1,6);
-					}else{
-						$numberPages1=intdiv($movies1,6)+1;
-					}
-
-					
-					if($numberPages1>0){
-						echo '<ul class="paginator">';
-
-						if($actualPage!=1){					
-							echo '<li class="paginator__item paginator__item--prev">
-							<a href="user.php?user=';
-
-							echo $_GET['user'];
-							echo '&page=';
-							$actualPage=$_GET["page"];
-							$prevPage=$actualPage-1;
-							echo $prevPage;
-							echo'
-							"><i class="icon ion-ios-arrow-back"></i></a>
-						</li>';
-						}
-	
-					for ($j = 1; $j <= $numberPages1; $j++) {
-						echo '<li class="paginator__item';
-						if($j==$_GET['page']){
-							echo ' paginator__item--active';
-						}
-						echo '"><a href="user.php?user=';
-						echo $_GET['user'];
-						echo '&page='.$j.'">'.$j.'</a></li>';
-					}
-					
-					if($actualPage!=$numberPages1){		
-						echo '<li class="paginator__item paginator__item--prev">
-						<a href="user.php?user=';
-
-						echo $_GET['user'];
-						echo '&page=';
-						$actualPage=$_GET["page"];
-						$prevPage=$actualPage+1;
-						echo $prevPage;
-						echo'
-						"><i class="icon ion-ios-arrow-forward"></i></a></li>';
-					}
-					
-					echo '</ul>';
-				}
-				?>						
-				</div>
-				<!-- end paginator -->
-				</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end filter -->
-
 	<!-- catalog -->
 	<div class="catalog">
 		<div class="container">
-			<h2 class="section__title">Movies Recently Watched</h2>
+			<h2 class="section__title"></h2>
 			<div class="row">
-			
-
-				<!-- cards -->
+				<!-- avatars -->
 				<?php
 
 				$dataBase = connectDB();
 			
-				$query='SELECT * FROM Watched w JOIN Movie m ON m.MovieId=w.MovieId WHERE w.Username="'
-				.$_GET["user"].'" ORDER BY WatchedDate DESC;';
+				$query='SELECT * FROM Avatar;';
 				$result=mysqli_query($dataBase,$query) or die('Query failed: '.mysqli_error($dataBase));
-				$movies=0;
-				$moviesToSkip=($actualPage-1)*6;
-					$skippedMovies=0;
-					$moviesDisplayed=0;
-
+			
 				while ($row = mysqli_fetch_array($result, MYSQL_ASSOC))
 				{
 				extract($row);
 					echo '
-					<div class="col-6 col-sm-4 col-lg-3 col-xl-2">';
-
-					
-
-					if($moviesToSkip==$skippedMovies && $moviesDisplayed<6){
-						echo '<div class="card">
-						<div class="card__cover">
-							<img src="'.$Poster.'" alt="">
-							<a href="#" class="card__play">
-								<i class="icon ion-ios-play"></i>
+					<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+						<div class="card">
+							<a href="avatar.php?avatar='.$AvatarId.'">
+								<div class="card__cover">
+									<img src="img/avatars/'.$AvatarLogo.'" alt="">
+								</div>
 							</a>
 						</div>
-						<div class="card__content">
-							<h3 class="card__title"><a href="movieDetails.php?id='.$MovieId.'">'.$Title.'</a></h3>
-							<span class="card__category">';
-
-							$dataBase2 = connectDB();
-							$query2='SELECT * FROM Belong b JOIN Category c ON c.CategoryId=b.CategoryId WHERE MovieId="'.$MovieId.'";';
-							$result2=mysqli_query($dataBase2,$query2) or die("Query failed: ".mysqli_error($dataBase2));
-			
-							while ($row2 = mysqli_fetch_array($result2, MYSQL_ASSOC))
-							{
-							extract($row2);
-							echo '<a href="#">'.$CategoryName.'</a>';
-							}    
-
-							mysql_close($dataBase2);
-							echo '
-							</span>
-							<span class="card__rate"><i class="icon ion-ios-star"></i>'.$Rating.'</span>
-						</div>
 					</div>';
-					$moviesDisplayed++;
-					}else{
-						$skippedMovies++;
-					}
-
-					echo '</div>';
-					$movies=$movies+1;
-				}								
+				}										
 				mysql_close($dataBase);
 				?>
-				<!-- end cards -->
-
-				<!-- paginator -->
-				<div class="col-12">
-					
-				<?php
-					if($movies%6==0){
-						$numberPages=intdiv($movies,6);
-					}else{
-						$numberPages=intdiv($movies,6)+1;
-					}
-
-					
-					if($numberPages>0){
-						echo '<ul class="paginator">';
-
-						if($actualPage!=1){					
-							echo '<li class="paginator__item paginator__item--prev">
-							<a href="user.php?user=';
-
-							echo $_GET['user'];
-							echo '&page=';
-							$actualPage=$_GET["page"];
-							$prevPage=$actualPage-1;
-							echo $prevPage;
-							echo'
-							"><i class="icon ion-ios-arrow-back"></i></a>
-						</li>';
-						}
-
-										
-					for ($i = 1; $i <= $numberPages; $i++) {
-						echo '<li class="paginator__item';
-						if($i==$_GET['page']){
-							echo ' paginator__item--active';
-						}
-						echo '"><a href="user.php?user=';
-						echo $_GET['user'];
-						echo '&page='.$i.'">'.$i.'</a></li>';
-					}
-					
-					if($actualPage!=$numberPages){		
-						echo '<li class="paginator__item paginator__item--prev">
-						<a href="user.php?user=';
-
-						echo $_GET['user'];
-						echo '&page=';
-						$actualPage=$_GET["page"];
-						$prevPage=$actualPage+1;
-						echo $prevPage;
-						echo'
-						"><i class="icon ion-ios-arrow-forward"></i></a></li>';
-					}
-					
-					echo '</ul>';
-				}
-				?>
-											
-				</div>
-				<!-- end paginator -->
+				<!-- end avatars -->
 			</div>
 		</div>
 	</div>
 	<!-- end catalog -->
-
-	<!-- expected premiere -->
-	<section class="section section--bg" data-bg="img/section/section.jpg">
-		<div class="container">
-			<div class="row">
-				<!-- section title -->
-				<div class="col-12">
-					<h2 class="section__title">People Followed</h2>
-				</div>
-				<!-- end section title -->
-
-				<!-- followers -->
-				<?php
-
-				$dataBase = connectDB();
-			
-				$query='SELECT * FROM Follower f JOIN User u ON f.UserFollowed=u.Username JOIN Avatar a ON u.Avatar=a.AvatarId WHERE f.UserFollower="'.$_GET["user"].'";';
-				$result=mysqli_query($dataBase,$query) or die('Query failed: '.mysqli_error($dataBase));
-
-				while ($row = mysqli_fetch_array($result, MYSQL_ASSOC))
-				{
-					extract($row);
-					echo '<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-						<div class="card">
-							<div class="card__cover">
-								<img src="img/avatars/'.$AvatarLogo.'" alt="Avatar Image" width="100px">
-							</div>
-							<div class="card__content">
-								<h3 class="card__title"><a href="user.php?user='.$UserFollowed.'&page=1">'.$UserFollowed.'</a></h3>
-								<span class="card__category">
-								</span>
-								<span class="card__rate"></span>
-							</div>
-						</div>
-					</div>';
-				}									
-				mysql_close($dataBase);
-				?>
-				<!-- end followers -->
-			</div>
-		</div>
-	</section>
-	<!-- end expected premiere -->
 
 	<!-- footer -->
 	<footer class="footer">
